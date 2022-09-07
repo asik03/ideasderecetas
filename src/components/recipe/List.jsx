@@ -4,22 +4,23 @@ import {
   UserCircleIcon,
   PencilAltIcon,
   TrashIcon,
+  PlusIcon,
 } from '@heroicons/react/outline'
 
 import EmptyState from '@/components/ui/EmptyState'
 import DeleteModal from '@/components/ui/DeleteModal'
 
-function AuthorList({ data, deleteAction }) {
+function RecipeList({ data, deleteAction }) {
   const [selected, setSelected] = useState()
   const [openModal, setOpenModal] = useState(false)
   if (!data || data.length == 0) {
     return (
       <EmptyState
         icon={UserCircleIcon}
-        title="No authors"
-        message="Start by adding a new author"
-        btnLabel="Add Author"
-        link="/author/create"
+        title="No recipes"
+        message="Start by adding a new recipe"
+        btnLabel="Add Recipe"
+        link="/recipe/create"
       />
     )
   }
@@ -46,9 +47,9 @@ function AuthorList({ data, deleteAction }) {
         cancelAction={cancelModalAction}
       />
       <div className="mb-4">
-        <Link to="/author/create" className="btn btn-secondary btn-sm">
-          <UserCircleIcon className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" />
-          New Author
+        <Link to="/recipe/create" className="btn btn-secondary btn-sm">
+          <PlusIcon className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" />
+          New Recipe
         </Link>
       </div>
       <table className="table w-full max-w-screen-lg">
@@ -64,27 +65,35 @@ function AuthorList({ data, deleteAction }) {
           </tr>
         </thead>
         <tbody>
-          {data.map((author, index) => (
+          {data.map((recipe, index) => (
             <tr key={index}>
-              <td>{author.name}</td>
               <td>
                 <Link
-                  to={`/author/edit/${author.id}`}
+                  to={`/recipe/elem/${recipe.id}`}
                   className="text-primary hover:text-primary-focus"
-                  title={`Edit ${author.name}`}
+                  title={`Open ${recipe.name}`}
                 >
-                  <PencilAltIcon
+                  {recipe.name}
+                </Link>
+              </td>
+              <td>
+                <Link // TODO
+                  to={`/recipe/edit/${recipe.id}`}
+                  className="text-primary hover:text-primary-focus"
+                  title={`Edit ${recipe.name}`}
+                >
+                <PencilAltIcon
                     className="w-5 h-5 mr-2 -ml-1"
                     aria-hidden="true"
-                  />
+                />
                 </Link>
               </td>
               <td>
                 <button
                   type="button"
-                  title={`Delete ${author.name}`}
+                  title={`Delete ${recipe.name}`}
                   className="text-secondary-content"
-                  onClick={() => showDeleteModal(author.id)}
+                  onClick={() => showDeleteModal(recipe.id)}
                 >
                   <TrashIcon
                     className="w-5 h-5 mr-2 -ml-1"
@@ -100,4 +109,4 @@ function AuthorList({ data, deleteAction }) {
   )
 }
 
-export default AuthorList
+export default RecipeList

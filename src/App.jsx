@@ -8,8 +8,9 @@ import Navbar from '@/layout/Navbar'
 
 import Home from '@/screens/Home'
 import NotFound from '@/screens/NotFound'
-import ScreenAuthorList from '@/screens/author/List'
-import ScreenAuthorForm from '@/screens/author/Form'
+import ScreenRecipeList from '@/screens/recipe/List'
+import ScreenRecipeForm from '@/screens/recipe/Form'
+import ScreenRecipeElem from '@/screens/recipe/Recipe'
 
 function App() {
   const queryClient = new QueryClient()
@@ -26,7 +27,10 @@ function App() {
               <Home />
             </Route>
             <Route exact path="/recipe">
-              <ScreenAuthorList />
+              <ScreenRecipeList />
+            </Route>
+            <Route path="/recipe/elem/:id">
+              <ScreenRecipeElem />
             </Route>
             {/* <Route path="/recipe/edit/:id">
               <ScreenAuthorForm />

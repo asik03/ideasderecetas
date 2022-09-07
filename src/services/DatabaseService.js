@@ -48,8 +48,8 @@ class DatabaseService {
   }
 }
 
-export const AuthorService = new DatabaseService('authors')
+export const RecipeService = new DatabaseService('recipes')
 
-export const CategoryService = new DatabaseService('categories')
-
-export const BookService = new DatabaseService('books')
+// export const CategoryService = new DatabaseService('categories')
+//
+// export const BookService = new DatabaseService('books')

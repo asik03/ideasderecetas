@@ -9,7 +9,7 @@ const schema = yup.object().shape({
   name: yup.string().label('Name').required().min(2),
 })
 
-function AuthorForm({ values, submit }) {
+function RecipeForm({ values, submit }) {
   const [errorMsg, setErrorMsg] = useState('')
 
   const {
@@ -58,7 +58,7 @@ function AuthorForm({ values, submit }) {
           <button type="submit" className="btn btn-primary btn-sm w-24">
             Save
           </button>
-          <Link to="/author" className="btn btn-outline btn-sm w-24">
+          <Link to="/recipe" className="btn btn-outline btn-sm w-24">
             Cancel
           </Link>
         </div>
@@ -67,4 +67,4 @@ function AuthorForm({ values, submit }) {
   )
 }
 
-export default AuthorForm
+export default RecipeForm

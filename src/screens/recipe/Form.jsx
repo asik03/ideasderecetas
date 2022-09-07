@@ -1,32 +1,32 @@
 import React from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { AuthorService } from '@/services/DatabaseService'
+import { RecipeService } from '@/services/DatabaseService'
 
 import PageHeading from '@/components/ui/PageHeading'
-import AuthorForm from '@/components/author/Form'
+import RecipeForm from '@/components/recipe/Form'
 import Alert from '@/components/ui/Alert'
 
-function ScreenAuthorForm() {
+function ScreenRecipeForm() {
   const { id } = useParams()
   const { data, isLoading, error, status } = useQuery(
-    ['author', { id }],
-    AuthorService.getOne
+    ['recipe', { id }],
+    RecipeService.getOne
   )
 
   const queryClient = useQueryClient()
 
   const saveData = (data) => {
     if (id) {
-      return AuthorService.update(id, data)
+      return RecipeService.update(id, data)
     } else {
-      AuthorService.create(data)
+      RecipeService.create(data)
     }
   }
 
   const mutation = useMutation((data) => saveData(data), {
     onSuccess: () => {
-      if (id) queryClient.invalidateQueries(['author', { id }])
+      if (id) queryClient.invalidateQueries(['recipe', { id }])
     },
   })
 
@@ -37,16 +37,16 @@ function ScreenAuthorForm() {
   }
 
   if (isSuccess) {
-    return <Redirect to="/author" />
+    return <Redirect to="/recipe" />
   }
 
   if (!id) {
     return (
       <>
-        <PageHeading title="Create Author" />
+        <PageHeading title="Create Recipe" />
         <div className="mt-12">
           {error && <Alert type="error" message={error.message} />}
-          <AuthorForm submit={onSubmit} />
+          <RecipeForm submit={onSubmit} />
         </div>
       </>
     )
@@ -54,7 +54,7 @@ function ScreenAuthorForm() {
 
   return (
     <>
-      <PageHeading title="Edit Author" />
+      <PageHeading title="Edit Recipe" />
       <div className="mt-12">
         {error && <Alert type="error" message={error.message} />}
         {isLoading && (
@@ -64,10 +64,10 @@ function ScreenAuthorForm() {
             innerClass="animate animate-pulse"
           />
         )}
-        {status === 'success' && <AuthorForm values={data} submit={onSubmit} />}
+        {status === 'success' && <RecipeForm values={data} submit={onSubmit} />}
       </div>
     </>
   )
 }
 
-export default ScreenAuthorForm
+export default ScreenRecipeForm

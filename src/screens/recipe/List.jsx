@@ -1,20 +1,21 @@
 import React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 
-import { AuthorService } from '@/services/DatabaseService'
+import { RecipeService } from '@/services/DatabaseService'
+
 import PageHeading from '@/components/ui/PageHeading'
-import AuthorList from '@/components/author/List'
+import RecipeList from '@/components/recipe/List'
 import Alert from '@/components/ui/Alert'
 
-function ScreenAuthorList() {
+function ScreenRecipeList() {
   const { data, isLoading, error, status } = useQuery(
-    'authors',
-    AuthorService.getAll
+    'recipes',
+    RecipeService.getAll
   )
 
   const queryClient = useQueryClient()
 
-  const deleteMutation = useMutation((id) => AuthorService.remove(id), {
+  const deleteMutation = useMutation((id) => RecipeService.remove(id), {
     onSuccess: () => {
       queryClient.invalidateQueries('authors')
     },
@@ -37,11 +38,11 @@ function ScreenAuthorList() {
           />
         )}
         {status === 'success' && (
-          <AuthorList data={data} deleteAction={deleteAction} />
+          <RecipeList data={data} deleteAction={deleteAction} />
         )}
       </div>
     </>
   )
 }
 
-export default ScreenAuthorList
+export default ScreenRecipeList
