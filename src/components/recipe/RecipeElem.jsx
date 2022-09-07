@@ -42,8 +42,49 @@ function RecipeList({
     setOpenModal(false)
   }
 
+
   return (
-    <div className="overflow-x-auto">
+
+    <div className="overflow-hidden antialiased font-medium bg-gray-200 mx-auto max-w-4xl">
+      <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+        <div className="px-4 py-5 sm:px-6 ">
+          <h3 style={{textTransform: 'capitalize', textAlign: 'center'}} className='text-xl font-medium leading-6 text-gray-900'>
+            {data.name}
+          </h3>
+          <p className="mt-1 max-w-2xl text-sm text-gray-500">
+            {data.description}
+          </p>
+        </div>
+        <div className="border-t border-gray-200">
+          <dl>
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">Full name</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Margot Foster</dd>
+            </div>
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">Application for</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Backend Developer</dd>
+            </div>
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">Email address</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">margotfoster@example.com</dd>
+            </div>
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">Salary expectation</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">$120,000</dd>
+            </div>
+            <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-sm font-medium text-gray-500">About</dt>
+              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+
+
+
+
       <DeleteModal
         open={openModal}
         deleteAction={deleteModalAction}
@@ -55,59 +96,19 @@ function RecipeList({
           New Recipe
         </Link>
       </div> */}
-      <table className="table w-full max-w-screen-lg">
-        <thead>
-          <tr>
-            <th>Name: {data.name}</th>
-            <th scope="col">
-              <span className="sr-only">Edit</span>
-            </th>
-            <th scope="col">
-              <span className="sr-only">Delete</span>
-            </th>
-          </tr>
-        </thead>
-        {/* <tbody>
-          {data.map((recipe, index) => (
-            <tr key={index}>
-              <td>
-                <Link
-                  to={`/recipe/elem/${recipe.id}`}
-                  className="text-primary hover:text-primary-focus"
-                  title={`Open ${recipe.name}`}
-                >
-                  {recipe.name}
-                </Link>
-              </td>
-              <td>
-                <Link // TODO
-                  to={`/recipe/edit/${recipe.id}`}
-                  className="text-primary hover:text-primary-focus"
-                  title={`Edit ${recipe.name}`}
-                >
-                <PencilAltIcon
-                    className="w-5 h-5 mr-2 -ml-1"
-                    aria-hidden="true"
-                />
-                </Link>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  title={`Delete ${recipe.name}`}
-                  className="text-secondary-content"
-                  onClick={() => showDeleteModal(recipe.id)}
-                >
-                  <TrashIcon
-                    className="w-5 h-5 mr-2 -ml-1"
-                    aria-hidden="true"
-                  />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody> */}
-      </table>
+      <div className='bg-gray-100'>
+        <div className='mx-auto max-w-7xl py-12 sm:px-6 lg:px-8 sm:rounded-lg'>
+          <div className="mx-auto max-w-4xl">
+            <div className='overflow-hidden bg-white shadow rounded-lg'>
+              <div className='px-4 py-5 sm:px-6'>
+                <h3 style={{textTransform: 'capitalize'}} className='text-lg font-medium leading-6 text-gray-900'>
+                  {data.name}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
