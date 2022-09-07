@@ -9,6 +9,7 @@ import Alert from '@/components/ui/Alert'
 
 function ScreenRecipeForm() {
   const { id } = useParams()
+
   const { data, isLoading, error, status } = useQuery(
     ['recipe', { id }],
     RecipeService.getOne
