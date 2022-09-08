@@ -44,15 +44,27 @@ function Home() {
       icon={item.icon}
     />
   ))
+
   return (
     <>
-      <PageHeading title="Ideas de Recetas" />
-      <h2 className="mt-8 text-lg font-semibold text-primary">
+      <div className="hero min-h-screen bg-base-200 rounded-box">
+        <div className="hero-content text-center ">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold">Ideas de Recetas</h1>
+            <p className="py-6">Encuentra una idea de muchas recetas para cocinar haciendo click en el generador de recetas aleatorio:</p>
+            <Link to={data[0].url}>
+              <button className="btn btn-primary">Generar Receta</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      {/* <PageHeading title="Ideas de Recetas" />
+      <h2 className="mt-8 text-lg font-semibold text-secondary">
         Encuentra una idea de muchas recetas para cocinar haciendo click en el generador de recetas aleatorio:
       </h2>
       <div className="grid grid-cols-1 mt-8 ml-3 mr-3 justify-items-center md:grid-cols-1">
         {pageCards}
-      </div>
+      </div> */}
     </>
   )
 }

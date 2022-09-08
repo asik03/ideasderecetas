@@ -45,8 +45,8 @@ function RecipeList({
 
   return (
 
-    <div className="overflow-hidden antialiased font-medium bg-gray-200 mx-auto max-w-4xl">
-      <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+    <div className="overflow-hidden antialiased font-medium  mx-auto max-w-4xl">
+      {/* <div className="overflow-hidden bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6 ">
           <h3 style={{textTransform: 'capitalize', textAlign: 'center'}} className='text-xl font-medium leading-6 text-gray-900'>
             {data.name}
@@ -79,11 +79,55 @@ function RecipeList({
             </div>
           </dl>
         </div>
+
+      </div> */}
+
+
+      <div className="flex flex-col w-full">
+
+        {/* TITLE */}
+        <div className="grid h-20 card bg-base-300 rounded-box place-items-center">
+          <div className='px-4 py-5 sm:px-6'>
+            <h3 style={{textTransform: 'capitalize'}} className='text-lg font-medium leading-6 text-gray-900'>
+                {data.name}
+              </h3>
+          </div>
+        </div>
+
+        <div className="divider"></div>
+
+
+        {/* IMAGES */}
+        <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div>
+
+        <div className="divider"></div>
+
+        {/* TIME, DIFICULTY, PRICE */}
+        <div className="flex w-full">
+          <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">TIME</div>
+          <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">DIFICULTY</div>
+          <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">PRICE</div>
+        </div>
+
+        <div className="divider divide-x-2"></div>
+
+        {/* INGREDIENTS (PERONSAS, GRID DE INGREDIENTES CON IMAGENES) */}
+        <div className="grid h-20 card bg-base-300 rounded-box place-items-center">INGREDIENTS</div>
+
+        <div className="divider divide-x-2"></div>
+
+        {/* STEPS (ORDERED LIST OF THE STEPS) */}
+        <div className="grid h-20 card bg-base-300 rounded-box place-items-center">STEPS</div>
+
+        <div className="divider"></div>
+
+        <div className="flex w-full">
+          <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">OTHER RECIPES</div>
+        </div>
+
+
+
       </div>
-
-
-
-
 
       <DeleteModal
         open={openModal}

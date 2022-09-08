@@ -30,7 +30,7 @@ function Navbar() {
       <div className="navbar-start px-2 mx-2">
         <Link to="/" className="inline-block text-lg font-bold text-primary">
           <span>Ideas</span>
-          <span className="text-base-content">De</span>
+          <span className="text-base-content  ">De</span>
           <span>Recetas </span>
         </Link>
       </div>
