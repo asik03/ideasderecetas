@@ -69,8 +69,9 @@ function RecipeList({ data, deleteAction }) {
             <tr key={index}>
               <td>
                 <Link
+                  style={{textTransform: 'capitalize'}}
                   to={`/recipe/elem/${recipe.id}`}
-                  className="text-primary hover:text-primary-focus"
+                  className="text-primary-content hover:text-primary-focus"
                   title={`Open ${recipe.name}`}
                 >
                   {recipe.name}
