@@ -10,7 +10,7 @@ import {
 import EmptyState from '@/components/ui/EmptyState'
 import DeleteModal from '@/components/ui/DeleteModal'
 
-function RecipeList({
+function RecipeElem({
   data,
   // deleteAction
 }) {
@@ -45,7 +45,10 @@ function RecipeList({
 
   return (
 
-    <div className="overflow-hidden antialiased font-medium  mx-auto max-w-4xl">
+    <div className="overflow-hidden antialiased font-medium mx-auto max-w-xs sm:max-w-xl lg:max-w-3xl">
+      <div className=" mx-96">
+hola
+      </div>
       {/* <div className="overflow-hidden bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6 ">
           <h3 style={{textTransform: 'capitalize', textAlign: 'center'}} className='text-xl font-medium leading-6 text-gray-900'>
@@ -87,11 +90,11 @@ function RecipeList({
 
         {/* TITLE */}
         <div className="grid h-20 card bg-base-300 rounded-box place-items-center">
-          <div className='px-4 py-5 sm:px-6'>
+
             <h3 style={{textTransform: 'capitalize'}} className='text-lg font-medium leading-6 text-gray-900'>
                 {data.name}
               </h3>
-          </div>
+
         </div>
 
         <div className="divider"></div>
@@ -157,4 +160,4 @@ function RecipeList({
   )
 }
 
-export default RecipeList
+export default RecipeElem
