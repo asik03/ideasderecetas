@@ -10,9 +10,12 @@
     "format": "prettier --write \"**/*.{jsx,js,css,json,md}\""
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.3",
     "@hookform/resolvers": "^2.7.1",
+    "@mui/material": "^5.10.4",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/line-clamp": "^0.2.1",
