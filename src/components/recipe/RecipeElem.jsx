@@ -41,7 +41,29 @@ export function ResponsiveIngredientsGrid() {
   );
 }
 
+function StepsBlock({steps}) {
+  if (!steps || steps.length == 0) {
+    return (
+      <div>EMPTY STEPS</div>
+    )
+  }
 
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="table w-full">
+        <tbody>
+          {steps.map((step, index) => (
+            <tr key={index}>
+              <th>{index+1}</th>
+              <td>{step}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 
 
@@ -87,45 +109,38 @@ function RecipeElem({
         </div>
         <div className="flex flex-col w-full">
           {/* TITLE */}
-          <div className="grid h-20 card bg-base-300 rounded-lg place-items-center">
+          {/* <div className="grid h-20 card bg-base-300 rounded-lg place-items-center">
               <h3 style={{textTransform: 'capitalize'}} className='text-lg font-medium leading-6 text-gray-900'>
                   {data.name}
                 </h3>
+          </div> */}
+          <div className='self-center mt-3'>
+            <h2 style={{textTransform: 'capitalize'}} className='text-gray-900 self-center'>
+              {data.name}
+            </h2>
           </div>
 
           <div className="divider"></div>
 
           {/* IMAGES */}
-          <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div>
-            <div className="carousel rounded-box self-center m-8">
-              <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div>
-              <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div>
-              <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div>
-              {/* <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div>
-              <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div>
-              <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div>
-              <div className="carousel-item">
-                <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-              </div> */}
+          {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div> */}
+          <div className="carousel rounded-box self-center m-8">
+            <div className="carousel-item">
+              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
             </div>
+            <div className="carousel-item">
+              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
+            </div>
+            <div className="carousel-item">
+              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
+            </div>
+          </div>
 
           <div className="divider"></div>
 
           {/* TIME, DIFICULTY, PRICE */}
 
-          <div className="stats rounded-lg shadow px-3 py-4 my-2 mx-10 items-center">
+          <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-6 sm:px-4 lg:px-6 sm:rounded-lg">
             <div className="stat">
               <div className="text-lg stat-value self-center">20 Minutos</div>
               <div className="stat-figure text-secondary">
@@ -166,26 +181,32 @@ function RecipeElem({
           {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">
             INGREDIENTS
           </div> */}
-          <div className=''>
-              <div className='mx-auto max-w-7xl py-12 sm:px-6 lg:px-8 sm:rounded-lg'>
-                <div className="mx-auto max-w-4xl">
-                  <div className='overflow-hidden bg-white shadow rounded-lg'>
-                    <div className='px-3 py-3 sm:px-6'>
-                      <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
-                        Ingredientes
-                      </h3>
-                      <ResponsiveIngredientsGrid></ResponsiveIngredientsGrid>
-                    </div>
-                  </div>
+          <div className='mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 sm:rounded-lg'>
+            <div className="mx-auto max-w-4xl">
+              <div className='overflow-hidden bg-white shadow rounded-lg'>
+                <div className='px-3 py-3 sm:px-6'>
+                  <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
+                    Ingredientes
+                  </h3>
+                  <ResponsiveIngredientsGrid></ResponsiveIngredientsGrid>
                 </div>
               </div>
             </div>
+          </div>
 
           <div className="divider divide-x-2">STEPS</div>
 
-          {/* STEPS (ORDERED LIST OF THE STEPS) */}
-          <div className="grid h-20 card bg-base-300 rounded-box place-items-center">
-            STEPS
+          <div className='mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 sm:rounded-lg'>
+            <div className="mx-auto max-w-4xl">
+              <div className='overflow-hidden bg-white shadow rounded-lg'>
+                <div className='px-3 py-3 sm:px-6'>
+                  <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
+                    Pasos
+                  </h3>
+                  <StepsBlock steps={["Hervir agua", "Cortar cebolla", "Calentar aceite", "Incorporar la cebolla al aceite"]}></StepsBlock>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="divider"></div>
