@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   UserCircleIcon,
@@ -9,6 +9,7 @@ import {
 
 import EmptyState from '@/components/ui/EmptyState'
 import DeleteModal from '@/components/ui/DeleteModal'
+import StorageService from '@/services/StorageService'
 
 function RecipeList({ data, deleteAction }) {
   const [selected, setSelected] = useState()
@@ -24,6 +25,10 @@ function RecipeList({ data, deleteAction }) {
       />
     )
   }
+
+  // const recipeImages = data.map((recipe, index) => (
+  //   <CategoryCard category={category} key={index} />
+  // ))
 
   const showDeleteModal = (id) => {
     setSelected(id)
@@ -66,43 +71,7 @@ function RecipeList({ data, deleteAction }) {
         </thead>
         <tbody>
           {data.map((recipe, index) => (
-            <tr key={index}>
-              <td>
-                <Link
-                  style={{textTransform: 'capitalize'}}
-                  to={`/recipe/elem/${recipe.id}`}
-                  className="text-primary-content hover:text-primary-focus"
-                  title={`Open ${recipe.name}`}
-                >
-                  {recipe.name}
-                </Link>
-              </td>
-              <td>
-                <Link // TODO
-                  to={`/recipe/edit/${recipe.id}`}
-                  className="text-primary hover:text-primary-focus"
-                  title={`Edit ${recipe.name}`}
-                >
-                <PencilAltIcon
-                    className="w-5 h-5 mr-2 -ml-1"
-                    aria-hidden="true"
-                />
-                </Link>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  title={`Delete ${recipe.name}`}
-                  className="text-secondary-content"
-                  onClick={() => showDeleteModal(recipe.id)}
-                >
-                  <TrashIcon
-                    className="w-5 h-5 mr-2 -ml-1"
-                    aria-hidden="true"
-                  />
-                </button>
-              </td>
-            </tr>
+            <RecipeElemCard recipe={recipe} key={index} />
           ))}
         </tbody>
       </table>
@@ -111,3 +80,68 @@ function RecipeList({ data, deleteAction }) {
 }
 
 export default RecipeList
+
+
+
+
+function RecipeElemCard({ recipe }) {
+  const [imageLink, setImageLink] = useState()
+
+  useEffect(async () => {
+    const url = await StorageService.getImageURL(recipe.cover)
+    setImageLink(url)
+  }, [recipe])
+
+  return (
+        <tr>
+          <td>
+            <Link
+              style={{textTransform: 'capitalize'}}
+              to={`/recipe/elem/${recipe.id}`}
+              className="text-primary-content hover:text-primary-focus"
+              title={`Open ${recipe.name}`}
+            >
+              <div className="card lg:card-side bg-base-100 shadow-xl">
+                <figure>
+                  <img src={imageLink} alt={recipe.name} />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">
+                    {recipe.name}
+                  </h2>
+                  {/* <p>Click the button to listen on Spotiwhy app.</p> */}
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">Listen</button>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </td>
+          <td>
+            <Link // TODO
+              to={`/recipe/edit/${recipe.id}`}
+              className="text-primary hover:text-primary-focus"
+              title={`Edit ${recipe.name}`}
+            >
+            <PencilAltIcon
+                className="w-5 h-5 mr-2 -ml-1"
+                aria-hidden="true"
+            />
+            </Link>
+          </td>
+          <td>
+            <button
+              type="button"
+              title={`Delete ${recipe.name}`}
+              className="text-secondary-content"
+              onClick={() => showDeleteModal(recipe.id)}
+            >
+              <TrashIcon
+                className="w-5 h-5 mr-2 -ml-1"
+                aria-hidden="true"
+              />
+            </button>
+          </td>
+        </tr>
+  )
+}

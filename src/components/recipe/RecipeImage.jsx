@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import StorageService from '@/services/StorageService'
-
-function CategoryCard({ category }) {
+// TODO
+function RecipeImageCard({ recipeImage }) {
   const [imageLink, setImageLink] = useState()
 
   useEffect(async () => {
-    const url = await StorageService.getImageURL(category.cover)
+    const url = await StorageService.getImageURL(recipeImage.cover)
     setImageLink(url)
-  }, [category])
+  }, [recipeImage])
 
   return (
     <div>
-      <Link to={`/category/edit/${category.id}`}>
-        <img src={imageLink} alt={category.name} />
+      <Link  to={`/recipe/elem/${recipe.id}`}>
+        <img src={imageLink} alt={recipeImage.name} />
       </Link>
     </div>
   )
 }
 
-export default CategoryCard
+export default RecipeImageCard
