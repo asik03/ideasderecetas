@@ -18,6 +18,54 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
+function parse_cook_time(minutes){
+  return `${minutes} minutos`
+}
+
+function parse_difficulty(difficulty){
+  var output
+  switch(difficulty) {
+    case 1:
+      output = "Muy fácil"
+      break;
+    case 2:
+      output = "Facil"
+      break;
+    case 3:
+      output = "Intermedio"
+      break;
+    case 4:
+      output = "Difícil"
+      break;
+    case 5:
+      output = "Muy difícil"
+      break;
+    default:
+      output = "No difficulty found"
+  }
+  return `${output}`
+}
+
+/**
+ * Select between different values depending on the price value ranges
+ * @param {*} price Prices are in dollars $ and per eater, TODO: adjust depending on the country (now only in Spain is available)
+ * @returns
+ */
+function parse_price(price){
+  var output
+  if (price > 10){
+    output = "Muy caro"
+  } else if (price > 6){
+    output = "Caro"
+  } else if (price > 4){
+    output = "Algo barato"
+  } else if (price > 2){
+    output = "Barato"
+  } else {
+    output = "Muy barato"
+  }
+  return `${output}`
+}
 
 const IngredientItem = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -142,7 +190,9 @@ function RecipeElem({
 
           <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-6 sm:px-4 lg:px-6 sm:rounded-lg">
             <div className="stat">
-              <div className="text-lg stat-value self-center">20 Minutos</div>
+              <div className="text-lg stat-value self-center">
+                {parse_cook_time(data.cook_time)}
+              </div>
               <div className="stat-figure text-secondary">
                 {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> */}
                 <ClockIcon className="w-6 h-6 mr-2 -ml-1" aria-hidden="true" />
@@ -150,7 +200,9 @@ function RecipeElem({
             </div>
 
             <div className="stat">
-              <div className="text-lg stat-value self-center">Facil</div>
+              <div className="text-lg stat-value self-center">
+                {parse_difficulty(data.difficulty)}
+              </div>
               <div className="stat-figure text-secondary">
                 {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg> */}
                 {/* <ClockIcon className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" /> */}
@@ -161,7 +213,9 @@ function RecipeElem({
             </div>
 
             <div className="stat">
-              <div className="text-lg stat-value self-center">Muy barato</div>
+              <div className="text-lg stat-value self-center">
+                {parse_price(data.price)}
+              </div>
               <div className="stat-figure text-secondary">
                 <CurrencyEuroIcon className="w-6 h-6 mr-2 -ml-1" aria-hidden="true" />
               </div>
