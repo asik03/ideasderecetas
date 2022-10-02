@@ -51,14 +51,14 @@ function RecipeList({ data, deleteAction }) {
         deleteAction={deleteModalAction}
         cancelAction={cancelModalAction}
       />
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <Link to="/recipe/create" className="btn btn-secondary btn-sm">
           <PlusIcon className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" />
           New Recipe
         </Link>
-      </div>
-      <table className="table w-full max-w-screen-lg">
-        <thead>
+      </div> */}
+      <table className="table w-full max-w-screen-lg items-center">
+        {/* <thead>
           <tr>
             <th>Name</th>
             <th scope="col">
@@ -68,8 +68,8 @@ function RecipeList({ data, deleteAction }) {
               <span className="sr-only">Delete</span>
             </th>
           </tr>
-        </thead>
-        <tbody>
+        </thead> */}
+        <tbody style={{textAlign: 'center', verticalAlign : 'middle'}}>
           {data.map((recipe, index) => (
             <RecipeElemCard recipe={recipe} key={index} />
           ))}
@@ -93,31 +93,33 @@ function RecipeElemCard({ recipe }) {
   }, [recipe])
 
   return (
-        <tr>
-          <td>
+        <tr >
+          <td
+          // style={{textAlign: 'center', verticalAlign : 'middle'}}
+          >
             <Link
               style={{textTransform: 'capitalize'}}
               to={`/recipe/elem/${recipe.id}`}
               className="text-primary-content hover:text-primary-focus"
               title={`Open ${recipe.name}`}
             >
-              <div className="card lg:card-side bg-base-100 shadow-xl">
+              <div className="card card-side bg-base-100 shadow-xl">
                 <figure>
-                  <img src={imageLink} alt={recipe.name} />
+                  <img className='object-cover h-64 w-128' src={imageLink} alt={recipe.name} />
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">
                     {recipe.name}
                   </h2>
-                  {/* <p>Click the button to listen on Spotiwhy app.</p> */}
-                  <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Listen</button>
+                  <p>Example description.</p>
+                  <div className="card-actions justify-center">
+                    <button className="btn btn-primary">Ver Receta</button>
                   </div>
                 </div>
               </div>
             </Link>
           </td>
-          <td>
+          {/* <td>
             <Link // TODO
               to={`/recipe/edit/${recipe.id}`}
               className="text-primary hover:text-primary-focus"
@@ -128,8 +130,8 @@ function RecipeElemCard({ recipe }) {
                 aria-hidden="true"
             />
             </Link>
-          </td>
-          <td>
+          </td> */}
+          {/* <td>
             <button
               type="button"
               title={`Delete ${recipe.name}`}
@@ -141,7 +143,7 @@ function RecipeElemCard({ recipe }) {
                 aria-hidden="true"
               />
             </button>
-          </td>
+          </td> */}
         </tr>
   )
 }
