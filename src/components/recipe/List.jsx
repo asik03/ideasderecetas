@@ -103,7 +103,7 @@ function RecipeElemCard({ recipe }) {
               className="text-primary-content hover:text-primary-focus"
               title={`Open ${recipe.name}`}
             >
-              <div className="card card-side bg-base-100 shadow-xl">
+              <div className="card bg-base-100 shadow-xl">
                 <figure>
                   <img className='object-cover h-64 w-128' src={imageLink} alt={recipe.name} />
                 </figure>
@@ -111,7 +111,9 @@ function RecipeElemCard({ recipe }) {
                   <h2 className="card-title">
                     {recipe.name}
                   </h2>
-                  <p>Example description.</p>
+                  <p style={{textTransform: 'none'}}>
+                    {recipe.description}
+                    </p>
                   <div className="card-actions justify-center">
                     <button className="btn btn-primary">Ver Receta</button>
                   </div>
