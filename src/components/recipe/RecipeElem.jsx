@@ -214,9 +214,12 @@ function RecipeElem({
 
           {/* IMAGES */}
           {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div> */}
-          <div className="carousel rounded-box self-center m-8">
-            {images}
+          <div className="shadow rounded-lg">
+            <div className="carousel rounded-box self-center m-8">
+              {images}
+            </div>
           </div>
+
 
           <div className="divider"></div>
 
@@ -224,7 +227,7 @@ function RecipeElem({
 
           <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-4 lg:px-4 sm:rounded-lg">
             <div className="stat p-4">
-              <div className="text-lg stat-value self-center">
+              <div className="text-xs sm:text-sm stat-value self-center">
                 {parse_cook_time(data.cook_time)}
               </div>
               <div className="stat-figure text-secondary">
@@ -234,7 +237,7 @@ function RecipeElem({
             </div>
 
             <div className="stat">
-              <div className="text-lg stat-value self-center">
+              <div className="text-xs sm:text-sm stat-value self-center">
                 {parse_difficulty(data.difficulty)}
               </div>
               <div className="stat-figure text-secondary">
@@ -247,7 +250,7 @@ function RecipeElem({
             </div>
 
             <div className="stat">
-              <div className="text-lg stat-value self-center">
+              <div className="text-xs sm:text-sm stat-value self-center">
                 {parse_price(data.price)}
               </div>
               <div className="stat-figure text-secondary">
