@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import StorageService from '@/services/StorageService'
+
 import { Link } from 'react-router-dom'
 import {
   UserCircleIcon,
@@ -147,6 +149,32 @@ function RecipeElem({
     setOpenModal(false)
   }
 
+  function ImageCard({ image }) {
+    const [imageLink, setImageLink] = useState()
+
+    useEffect(async () => {
+      const url = await StorageService.getImageURL(image)
+      setImageLink(url)
+      return () => {
+        setState({}); // This worked for me
+      };
+    }, [image])
+
+    return (
+      <div className="carousel-item">
+        {/* <Link to={`/category/edit/${category.id}`}> */}
+          <img src={imageLink} alt={image} className=" object-cover h-64 w-128"/>
+        {/* </Link> */}
+      </div>
+    )
+  }
+
+
+
+  const images = data.imgs.map((image, index) => (
+    <ImageCard image={image} key={index} />
+  ))
+
 
   return (
 
@@ -172,16 +200,22 @@ function RecipeElem({
 
           {/* IMAGES */}
           {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div> */}
+          {/* <div className="carousel rounded-box self-center m-8">
+            <div className="carousel-item">
+              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
+            </div>
+            <div className="carousel-item">
+              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
+            </div>
+            <div className="carousel-item">
+              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
+            </div>
+          </div> */}
+
+          {/* IMAGES */}
+          {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div> */}
           <div className="carousel rounded-box self-center m-8">
-            <div className="carousel-item">
-              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-            </div>
-            <div className="carousel-item">
-              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-            </div>
-            <div className="carousel-item">
-              <img src="https://placeimg.com/400/300/arch" alt="Burger" />
-            </div>
+            {images}
           </div>
 
           <div className="divider"></div>
