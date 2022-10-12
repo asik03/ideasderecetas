@@ -28,7 +28,7 @@ function ScreenRecipeList() {
   return (
     <>
       <PageHeading title="Recetas Encontradas" />
-      <div className="mt-12">
+      <div className="mt-6">
         {error && <Alert type="error" message={error.message} />}
         {isLoading && (
           <Alert

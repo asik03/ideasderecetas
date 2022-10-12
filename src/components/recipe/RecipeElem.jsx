@@ -188,8 +188,8 @@ function RecipeElem({
 
           {/* TIME, DIFICULTY, PRICE */}
 
-          <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-6 sm:px-4 lg:px-6 sm:rounded-lg">
-            <div className="stat">
+          <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-4 lg:px-4 sm:rounded-lg">
+            <div className="stat p-4">
               <div className="text-lg stat-value self-center">
                 {parse_cook_time(data.cook_time)}
               </div>
