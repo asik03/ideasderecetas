@@ -98,7 +98,6 @@ function StepsBlock({steps}) {
     )
   }
 
-
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -304,7 +303,10 @@ function RecipeElem({
                   <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
                     Pasos
                   </h3>
-                  <StepsBlock steps={["Hervir agua", "Cortar cebolla", "Calentar aceite", "Incorporar la cebolla al aceite"]}></StepsBlock>
+                  <StepsBlock steps={data.steps}
+                  // {["Hervir agua", "Cortar cebolla", "Calentar aceite", "Incorporar la cebolla al aceite"]}
+                  >
+                  </StepsBlock>
                 </div>
               </div>
             </div>
