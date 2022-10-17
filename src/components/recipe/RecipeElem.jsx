@@ -149,7 +149,7 @@ function RecipeElem({
     setOpenModal(false)
   }
 
-  function ImageCard({ image }) {
+  function ImageCard({ image, itemId}) {
     const [imageLink, setImageLink] = useState()
 
     useEffect(async () => {
@@ -161,9 +161,9 @@ function RecipeElem({
     }, [image])
 
     return (
-      <div className="carousel-item">
+      <div className="carousel-item" id={itemId}>
         {/* <Link to={`/category/edit/${category.id}`}> */}
-          <img src={imageLink} alt={image} className=" object-cover h-64 w-128"/>
+          <img src={imageLink} alt={image} className="object-cover h-64 w-128"/>
         {/* </Link> */}
       </div>
     )
@@ -172,7 +172,13 @@ function RecipeElem({
 
 
   const images = data.imgs.map((image, index) => (
-    <ImageCard image={image} key={index} />
+    <ImageCard image={image} itemId={index} key={index} />
+  ))
+
+  const img_index = data.imgs.map((image, index) => (
+    <a href={"#" + index} className="btn btn-xs" key={index}>
+      {index+1}
+    </a>
   ))
 
 
@@ -218,6 +224,10 @@ function RecipeElem({
             <div className="carousel rounded-box self-center m-8">
               {images}
             </div>
+
+            {/* <div className="flex justify-center w-full py-2 gap-2">
+              {img_index}
+            </div> */}
           </div>
 
 
