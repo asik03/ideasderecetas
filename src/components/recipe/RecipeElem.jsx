@@ -71,24 +71,37 @@ function parse_price(price){
 
 const IngredientItem = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
+  // ...theme.typography.body2,
   padding: theme.spacing(2),
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
 
-export function ResponsiveIngredientsGrid() {
+
+
+export function ResponsiveIngredientsGrid(ingredients) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {Array.from(Array(6)).map((_, index) => (
+        {ingredients.ingredients.map((ingredient, index) => (
           <Grid item xs={2} sm={4} md={4} key={index}>
-            <IngredientItem>xs=2</IngredientItem>
+            <IngredientItem>{ingredient.name}</IngredientItem>
           </Grid>
         ))}
       </Grid>
     </Box>
   );
+  // return (
+  //   <Box sx={{ flexGrow: 1 }}>
+  //     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+  //       {Array.from(Array(6)).map((_, index) => (
+  //         <Grid item xs={2} sm={4} md={4} key={index}>
+  //           <IngredientItem>xs=2</IngredientItem>
+  //         </Grid>
+  //       ))}
+  //     </Grid>
+  //   </Box>
+  // );
 }
 
 function StepsBlock({steps}) {
@@ -288,7 +301,128 @@ function RecipeElem({
                   <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
                     Ingredientes
                   </h3>
-                  <ResponsiveIngredientsGrid></ResponsiveIngredientsGrid>
+                  <ResponsiveIngredientsGrid
+                  ingredients =
+                  {data.ingredients}
+                  // {
+                  //   [
+                  //     {
+                  //       "name": "aceite",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "sal",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "arroz",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "pollo",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "conejo",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "judías verdes",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "garrofón",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "tomate natural rallado",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "higados de pollo",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "pimentón dulce",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "azafrán",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "romero",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "agua",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "colorante",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "sal",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "limón",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     }
+                  //   ]
+                  // }
+                  >
+
+                  </ResponsiveIngredientsGrid>
                 </div>
               </div>
             </div>
