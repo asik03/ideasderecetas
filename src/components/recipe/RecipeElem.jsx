@@ -235,7 +235,7 @@ function RecipeElem({
           <div className="shadow rounded-lg">
             <div className="carousel rounded-box self-center m-8">
               {images}
-            </div>
+          </div>
 
             {/* <div className="flex justify-center w-full py-2 gap-2">
               {img_index}
