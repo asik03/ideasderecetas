@@ -82,7 +82,7 @@ const IngredientItem = styled(Paper)(({ theme }) => ({
 export function ResponsiveIngredientsGrid(ingredients) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 2 }}>
         {ingredients.ingredients.map((ingredient, index) => (
           <Grid item xs={2} sm={4} md={4} key={index}>
             <IngredientItem>{ingredient.name}</IngredientItem>
@@ -296,12 +296,12 @@ function RecipeElem({
           </div> */}
           <div className='mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 sm:rounded-lg'>
             <div className="mx-auto max-w-4xl">
-              <div className='overflow-hidden bg-white shadow rounded-lg'>
-                <div className='px-3 py-3 sm:px-6'>
-                  <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
+              <div className='mx-auto overflow-hidden bg-white shadow rounded-lg'>
+                <div className='mx-auto px-3 py-3 sm:px-6'>
+                  <h3 style={{textTransform: 'capitalize'}} className='pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
                     Ingredientes
                   </h3>
-                  <ResponsiveIngredientsGrid
+                  <ResponsiveIngredientsGrid className='mx-auto'
                   ingredients =
                   {data.ingredients}
                   // {
