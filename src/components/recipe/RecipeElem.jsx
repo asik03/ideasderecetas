@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import StorageService from '@/services/StorageService'
+
 import { Link } from 'react-router-dom'
 import {
   UserCircleIcon,
@@ -18,27 +20,88 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
+function parse_cook_time(minutes){
+  return `${minutes} minutos`
+}
+
+function parse_difficulty(difficulty){
+  var output
+  switch(difficulty) {
+    case 1:
+      output = "Muy fácil"
+      break;
+    case 2:
+      output = "Facil"
+      break;
+    case 3:
+      output = "Intermedio"
+      break;
+    case 4:
+      output = "Difícil"
+      break;
+    case 5:
+      output = "Muy difícil"
+      break;
+    default:
+      output = "No difficulty found"
+  }
+  return `${output}`
+}
+
+/**
+ * Select between different values depending on the price value ranges
+ * @param {*} price Prices are in dollars $ and per eater, TODO: adjust depending on the country (now only in Spain is available)
+ * @returns
+ */
+function parse_price(price){
+  var output
+  if (price > 10){
+    output = "Muy caro"
+  } else if (price > 6){
+    output = "Caro"
+  } else if (price > 4){
+    output = "Algo barato"
+  } else if (price > 2){
+    output = "Barato"
+  } else {
+    output = "Muy barato"
+  }
+  return `${output}`
+}
 
 const IngredientItem = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
+  // ...theme.typography.body2,
   padding: theme.spacing(2),
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
 
-export function ResponsiveIngredientsGrid() {
+
+
+export function ResponsiveIngredientsGrid(ingredients) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {Array.from(Array(6)).map((_, index) => (
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 2 }}>
+        {ingredients.ingredients.map((ingredient, index) => (
           <Grid item xs={2} sm={4} md={4} key={index}>
-            <IngredientItem>xs=2</IngredientItem>
+            <IngredientItem>{ingredient.name}</IngredientItem>
           </Grid>
         ))}
       </Grid>
     </Box>
   );
+  // return (
+  //   <Box sx={{ flexGrow: 1 }}>
+  //     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+  //       {Array.from(Array(6)).map((_, index) => (
+  //         <Grid item xs={2} sm={4} md={4} key={index}>
+  //           <IngredientItem>xs=2</IngredientItem>
+  //         </Grid>
+  //       ))}
+  //     </Grid>
+  //   </Box>
+  // );
 }
 
 function StepsBlock({steps}) {
@@ -47,7 +110,6 @@ function StepsBlock({steps}) {
       <div>EMPTY STEPS</div>
     )
   }
-
 
   return (
     <div className="overflow-x-auto">
@@ -99,6 +161,38 @@ function RecipeElem({
     setOpenModal(false)
   }
 
+  function ImageCard({ image, itemId}) {
+    const [imageLink, setImageLink] = useState()
+
+    useEffect(async () => {
+      const url = await StorageService.getImageURL(image)
+      setImageLink(url)
+      return () => {
+        setState({}); // This worked for me
+      };
+    }, [image])
+
+    return (
+      <div className="carousel-item" id={itemId}>
+        {/* <Link to={`/category/edit/${category.id}`}> */}
+          <img src={imageLink} alt={image} className="object-cover h-64 w-128"/>
+        {/* </Link> */}
+      </div>
+    )
+  }
+
+
+
+  const images = data.imgs.map((image, index) => (
+    <ImageCard image={image} itemId={index} key={index} />
+  ))
+
+  const img_index = data.imgs.map((image, index) => (
+    <a href={"#" + index} className="btn btn-xs" key={index}>
+      {index+1}
+    </a>
+  ))
+
 
   return (
 
@@ -124,7 +218,7 @@ function RecipeElem({
 
           {/* IMAGES */}
           {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div> */}
-          <div className="carousel rounded-box self-center m-8">
+          {/* <div className="carousel rounded-box self-center m-8">
             <div className="carousel-item">
               <img src="https://placeimg.com/400/300/arch" alt="Burger" />
             </div>
@@ -134,15 +228,30 @@ function RecipeElem({
             <div className="carousel-item">
               <img src="https://placeimg.com/400/300/arch" alt="Burger" />
             </div>
+          </div> */}
+
+          {/* IMAGES */}
+          {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">IMAGES</div> */}
+          <div className="shadow rounded-lg">
+            <div className="carousel rounded-box self-center m-8">
+              {images}
+            </div>
+
+            {/* <div className="flex justify-center w-full py-2 gap-2">
+              {img_index}
+            </div> */}
           </div>
+
 
           <div className="divider"></div>
 
           {/* TIME, DIFICULTY, PRICE */}
 
-          <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-6 sm:px-4 lg:px-6 sm:rounded-lg">
-            <div className="stat">
-              <div className="text-lg stat-value self-center">20 Minutos</div>
+          <div className="stats rounded-lg shadow items-center mx-auto max-w-6xl py-4 lg:px-4 sm:rounded-lg">
+            <div className="stat p-4">
+              <div className="text-xs sm:text-sm stat-value self-center">
+                {parse_cook_time(data.cook_time)}
+              </div>
               <div className="stat-figure text-secondary">
                 {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> */}
                 <ClockIcon className="w-6 h-6 mr-2 -ml-1" aria-hidden="true" />
@@ -150,7 +259,9 @@ function RecipeElem({
             </div>
 
             <div className="stat">
-              <div className="text-lg stat-value self-center">Facil</div>
+              <div className="text-xs sm:text-sm stat-value self-center">
+                {parse_difficulty(data.difficulty)}
+              </div>
               <div className="stat-figure text-secondary">
                 {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg> */}
                 {/* <ClockIcon className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" /> */}
@@ -161,7 +272,9 @@ function RecipeElem({
             </div>
 
             <div className="stat">
-              <div className="text-lg stat-value self-center">Muy barato</div>
+              <div className="text-xs sm:text-sm stat-value self-center">
+                {parse_price(data.price)}
+              </div>
               <div className="stat-figure text-secondary">
                 <CurrencyEuroIcon className="w-6 h-6 mr-2 -ml-1" aria-hidden="true" />
               </div>
@@ -183,12 +296,133 @@ function RecipeElem({
           </div> */}
           <div className='mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 sm:rounded-lg'>
             <div className="mx-auto max-w-4xl">
-              <div className='overflow-hidden bg-white shadow rounded-lg'>
-                <div className='px-3 py-3 sm:px-6'>
-                  <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
+              <div className='mx-auto overflow-hidden bg-white shadow rounded-lg'>
+                <div className='mx-auto px-3 py-3 sm:px-6'>
+                  <h3 style={{textTransform: 'capitalize'}} className='pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
                     Ingredientes
                   </h3>
-                  <ResponsiveIngredientsGrid></ResponsiveIngredientsGrid>
+                  <ResponsiveIngredientsGrid className='mx-auto'
+                  ingredients =
+                  {data.ingredients}
+                  // {
+                  //   [
+                  //     {
+                  //       "name": "aceite",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "sal",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "arroz",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "pollo",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "conejo",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "judías verdes",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "garrofón",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "tomate natural rallado",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "higados de pollo",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "pimentón dulce",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "azafrán",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "romero",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "agua",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "colorante",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "sal",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     },
+                  //     {
+                  //       "name": "limón",
+                  //       "category": 1,
+                  //       "calories": 100,
+                  //       "quantity": 500,
+                  //       "quantity_type": "gr"
+                  //     }
+                  //   ]
+                  // }
+                  >
+
+                  </ResponsiveIngredientsGrid>
                 </div>
               </div>
             </div>
@@ -203,7 +437,10 @@ function RecipeElem({
                   <h3 style={{textTransform: 'capitalize'}} className=' pb-3 text-lg font-medium text-center leading-6 text-gray-900'>
                     Pasos
                   </h3>
-                  <StepsBlock steps={["Hervir agua", "Cortar cebolla", "Calentar aceite", "Incorporar la cebolla al aceite"]}></StepsBlock>
+                  <StepsBlock steps={data.steps}
+                  // {["Hervir agua", "Cortar cebolla", "Calentar aceite", "Incorporar la cebolla al aceite"]}
+                  >
+                  </StepsBlock>
                 </div>
               </div>
             </div>
