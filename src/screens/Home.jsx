@@ -33,6 +33,11 @@ function Home() {
       title: 'Generar Receta',
       url: '/recipe',
       icon: ArrowCircleRightIcon,
+    },
+    {
+      title: 'Crear Receta',
+      url: '/recipe/create',
+      icon: ArrowCircleRightIcon,
     }
   ]
 
@@ -52,9 +57,16 @@ function Home() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Ideas de Recetas</h1>
             <p className="py-6">Encuentra una idea de muchas recetas para cocinar haciendo click en el generador de recetas aleatorio:</p>
-            <Link to={data[0].url}>
-              <button className="btn btn-primary">Generar Receta</button>
-            </Link>
+            <div className="px-2 py-2">
+              <Link to={data[0].url}>
+                <button className="btn btn-primary">Generar Receta</button>
+              </Link>
+            </div>
+            <div className="px-2 py-2">
+                <Link to={data[1].url}>
+                  <button className="btn btn-primary">Crear Receta</button>
+                </Link>
+            </div>
           </div>
         </div>
       </div>

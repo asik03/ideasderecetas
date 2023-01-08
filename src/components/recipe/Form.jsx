@@ -4,9 +4,61 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Alert from '@/components/ui/Alert'
 import { Link } from 'react-router-dom'
+import { ImageList } from '@mui/material'
 
 const schema = yup.object().shape({
-  name: yup.string().label('Name').required().min(2),
+  name: yup
+    .string()
+    .label('Name')
+    .required()
+    .min(2),
+  cook_time: yup
+    .number()
+    .label('CookTime')
+    .required()
+    .min(1),
+  cover: yup
+    .string()
+    .label('CoverImg')
+    .required()
+    .min(2),
+  name: yup
+    .string()
+    .label('Description')
+    .required()
+    .min(2),
+  difficulty: yup
+    .number()
+    .label('Difficulty')
+    .required()
+    .min(1),
+  imgs: yup.array()
+    .of(
+      yup.object().shape({
+        img: yup.string(),
+      })
+    ),
+    // .required(),
+  ingredients: yup.array()
+    .of(
+      yup.object().shape({
+        calories: yup.string(),
+        name: yup.string(),
+      })
+    ),
+    // .required(),
+  price: yup
+    .number()
+    .label('Price')
+    .required()
+    .min(1),
+  steps: yup.array()
+    .of(
+      yup.object().shape({
+        step: yup.string(),
+      })
+    ),
+    // .required(),
 })
 
 function RecipeForm({ values, submit }) {
@@ -45,6 +97,23 @@ function RecipeForm({ values, submit }) {
             type="text"
             autoComplete="off"
             {...register('name')}
+            className={`input input-bordered ${errors.name && 'input-error'}`}
+          />
+          {errors.name && (
+            <span className="mt-1 text-xs text-error">
+              {errors.name.message}
+            </span>
+          )}
+        </div>
+
+        <div className="form-control">
+          <label className="label" htmlFor="name">
+            <span className="label-text">Cook Time</span>
+          </label>
+          <input
+            type="number"
+            autoComplete="off"
+            {...register('cook_time')}
             className={`input input-bordered ${errors.name && 'input-error'}`}
           />
           {errors.name && (

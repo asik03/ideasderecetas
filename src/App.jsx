@@ -34,10 +34,10 @@ function App() {
             </Route>
             {/* <Route path="/recipe/edit/:id">
               <ScreenAuthorForm />
-            </Route>
-            <Route path="/recipe/create">
-              <ScreenAuthorForm />
             </Route> */}
+            <Route path="/recipe/create">
+              <ScreenRecipeForm />
+            </Route>
             <Route component={NotFound} />
           </Switch>
           <ReactQueryDevtools initialIsOpen={false} />
